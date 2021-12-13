@@ -60,7 +60,7 @@ int db[2] = {DB_MAX_VIDA,DB_MAX_EN};
 //movimento - movimentar para frente ou atrás.
 void movimento(int pos)
 {
-	setMotorTarget(wheels, -620*(pos+1), 35); //movimenta as rodas em 180 distância vezes a posição do array + 1 para frente com velocidade a 35%
+	setMotorTarget(wheels, -620*(pos+1), 35); //movimenta as rodas em 620 distância vezes a posição do array + 1 para frente com velocidade a 35%
 	waitUntilMotorStop(wheels); //o programa espera até que wheels chegue ao destino
 	sleep(200); //0.2 segundos
 }
