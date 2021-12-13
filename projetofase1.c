@@ -8,8 +8,8 @@
 
 /*LISTA DE TAREFAS A FALTAR:
 -	mostrar ataque de toque
-- Criar diagramas para representaÁ„o do cÛdigo
-- VÌdeos do protÛtipo
+- Criar diagramas para representa√ß√£o do c√≥digo
+- V√≠deos do prot√≥tipo
 */
 
 /*
@@ -48,7 +48,7 @@ CONSTANTES DA TABELA DE VALORES DO DEFENDER-BOT
 #define DB_CONSUMO_CURA3 400
 
 
-//*****************************************INICIALIZA«√O
+//*****************************************INICIALIZA√á√ÉO
 
 //array de inimigos
 int tanque[3] = {T_MAX_FORCA,T_MAX_ATAQUES,T_MAX_VIDA};
@@ -63,15 +63,15 @@ int db[2] = {DB_MAX_VIDA,DB_MAX_EN};
 
 //*****************************************FUNCOES AUXILIARES
 
-//movimento - movimentar para frente ou atr·s.
+//movimento - movimentar para frente ou atr√°s.
 void movimento(int pos)
 {
-	setMotorTarget(wheels, -620*(pos+1), 35); //movimenta as rodas em 180 dist‚ncia vezes a posiÁ„o do array + 1 para frente com velocidade a 35%
-	waitUntilMotorStop(wheels); //o programa espera atÈ que wheels chegue ao destino
+	setMotorTarget(wheels, -620*(pos+1), 35); //movimenta as rodas em 180 dist√¢ncia vezes a posi√ß√£o do array + 1 para frente com velocidade a 35%
+	waitUntilMotorStop(wheels); //o programa espera at√© que wheels chegue ao destino
 	sleep(200); //0.2 segundos
 }
 
-//ataqueDB - aÁ„o dos tipos de ataque DB
+//ataqueDB - a√ß√£o dos tipos de ataque DB
 void ataqueDB(int pos, int tipo)
 {
 	int enantes = db[1]; //guarda energia de db antes de alterar
@@ -88,7 +88,7 @@ void ataqueDB(int pos, int tipo)
 	case 0:
 		//ATAQUEGRUA
 		//motor de grua
-		playSoundFile("Boing");
+		playSoundFile("Boing"); //ficheiro de som "Boing"
 		setMotorTarget(grua,380,30); //desce a grua
 		waitUntilMotorStop(grua); //esperar por grua
 		sleep(1000); //1 segundo
@@ -98,7 +98,7 @@ void ataqueDB(int pos, int tipo)
 		break;
 	case 1:
 		//ATAQUETOQUE
-		playSoundFile("Touch");
+		playSoundFile("Touch"); //ficheiro de som "Touch"
 		setMotorTarget(toque,100,30); //desce a garra
 		waitUntilMotorStop(toque); //esperar que o motor de toque pare
 		sleep(1000); //1 segundo
@@ -108,7 +108,7 @@ void ataqueDB(int pos, int tipo)
 		break;
 	case 2:
 		//ATAQUESOM
-		playSoundFile("Sonar");
+		playSoundFile("Sonar"); //ficheiro de som "Sonar"
 		break;
 	default:
 		//UNKNOWN
@@ -120,7 +120,7 @@ void ataqueDB(int pos, int tipo)
 	sleep(1000); //1 segundo
 }
 
-//curaDB - aÁ„o dos tipos de cura DB
+//curaDB - a√ß√£o dos tipos de cura DB
 void curaDB(int tipo)
 {
 	int antesvida = db[0]; //guardar vida DB antes de alterar
@@ -132,21 +132,21 @@ void curaDB(int tipo)
 	displayCenteredTextLine(7,"%s %d %s %d", "Energia:", antesener, "->", db[1]); //Energia: 500 -> 200
 	displayCenteredTextLine(6,"%s %d %s %d", "Vida:", antesvida, "->", db[0]); //Vida: 250 -> 450
 
-	playSoundFile("Magic wand");
+	playSoundFile("Magic wand"); //ficheiro de som "Magic wand"
 	sleep(1000); //1 segundo
 	switch(tipo) //tipo de cura
 	{
 	case 0:
 		//CURA1
-		playSoundFile("Zero");
+		playSoundFile("Zero"); //ficheiro de som "Zero" - s√≥ para distinguir a cura 1 de outras curas
 		break;
 	case 1:
 		//CURA2
-		playSoundFile("Four");
+		playSoundFile("Four"); //ficheiro de som "Four" - s√≥ para distinguir a cura 2 de outras curas
 		break;
 	case 2:
 		//CURA3
-		playSoundFile("Three");
+		playSoundFile("Three"); //ficheiro de som "Three"
 		break;
 	default:
 		//UNKNOWN
@@ -158,14 +158,14 @@ void curaDB(int tipo)
 	sleep(1000); //1 segundo
 }
 
-//inserirInimigo - quando o inimigo È inserido no slot pela primeira vez
+//inserirInimigo - quando o inimigo √© inserido no slot pela primeira vez
 void inserirInimigo(int pos, string str, int forca)
 {
 	displayCenteredBigTextLine(4, "%s %s", str, "INSERIDO!"); //ART INSERIDO!
 	arrayenemies[pos][0] = forca; //{{500,NULL,NULL},...}, isto acontece para poder fazer o switch
 	for(int j = 1; j < 3; j++)
 	{
-		switch(arrayenemies[pos][0])
+		switch(arrayenemies[pos][0]) //verificar a for√ßa m√°xima de um inimigo presente no slot
 		{
 		case 500: //artilharia
 			arrayenemies[pos][j] = artilharia[j]; //{{500,1,50},...}
@@ -186,13 +186,13 @@ void inserirInimigo(int pos, string str, int forca)
 
 	displayCenteredTextLine(12, "%s %d", "Vida de DB:", db[0]); //Vida de DB: 750
 
-	playSoundFile("Ready");
+	playSoundFile("Ready"); //ficheiro de som "Ready"
 }
 
-//ataqueInimigo - quando existir inimigo no slot, este pode atacar ou n„o, dependendo das suas condiÁıes de vida e numero de ataques
+//ataqueInimigo - quando existir inimigo no slot, este pode atacar ou n√£o, dependendo das suas condi√ß√µes de vida e numero de ataques
 void ataqueInimigo(int pos, string str)
 {
-	//SE TEM AS CONDI«’ES PARA ATAQUE - num_ataques > 0 e vida > 0
+	//SE TEM AS CONDI√á√ïES PARA ATAQUE - num_ataques > 0 e vida > 0
 	if(arrayenemies[pos][1] > 0 && arrayenemies[pos][2] > 0)
 	{
 		displayCenteredBigTextLine(4, "%s %s", str, "ATACOU!"); //ART ATACOU!
@@ -224,7 +224,7 @@ void ataqueInimigo(int pos, string str)
 		//mostrar vida de db DEPOIS DO ATAQUE
 		displayCenteredTextLine(12, "%s %d %s %d", "Vida de DB:", vidaantes, "->", db[0]); //Vida de DB: 750 -> 250
 
-		playSoundFile("Ouch");
+		playSoundFile("Ouch"); //ficheiro de som "Ouch"
 
 		//decrementa num_ataque
 		arrayenemies[pos][1] -= 1;
@@ -234,7 +234,7 @@ void ataqueInimigo(int pos, string str)
 		displayCenteredTextLine(7,"%s %d", "Ataques restantes:", arrayenemies[pos][1]); //Ataques restantes: 0
 		displayCenteredTextLine(8,"%s %d", "Vida:", arrayenemies[pos][2]); //Vida: 50
 	}
-	//SEN√O, INDICA QUE J¡ N√O ATACA (ou morreu ou num_ataques = 0)
+	//SEN√ÉO, INDICA QUE J√Å N√ÉO ATACA (ou morreu ou num_ataques = 0)
 	else
 	{
 		displayCenteredBigTextLine(4, "%s %s", str, "NAO ATACOU!"); //ART NAO ATACOU!
@@ -245,14 +245,14 @@ void ataqueInimigo(int pos, string str)
 
 		displayCenteredTextLine(12, "%s %d", "Vida de DB:", db[0]); //Vida de DB: 750
 
-		playSoundFile("No");
+		playSoundFile("No"); //ficheiro de som "No"
 	}
 }
 
-//turnoInimigo - turno da forÁa atacante
+//turnoInimigo - turno da for√ßa atacante
 void turnoInimigo()
 {
-	//esperar atÈ que seja pressionado bot„o de sensor de toque de EV3
+	//esperar at√© que seja pressionado bot√£o de sensor de toque de EV3
 	while(getBumpedValue(Touch) == 0) {}
 
 	sleep(2000); //esperar 2 segundos
@@ -278,7 +278,7 @@ void turnoInimigo()
 				displayCenteredTextLine(7,"");
 				displayCenteredTextLine(8,"");
 				displayCenteredTextLine(12, "%s %d", "Vida de DB:", db[0]);
-				playSoundFile("White");
+				playSoundFile("White"); //ficheiro de som "White"
 				// nada adicionado nem removido
 				break;
 
@@ -293,7 +293,7 @@ void turnoInimigo()
 
 				// se for verde - tanque
 			case 3:
-				playSoundFile("Green");
+				playSoundFile("Green"); //ficheiro de som "Green"
 				sleep(2000);
 				string nameenemy_t;
 				nameenemy_t = "TANK";
@@ -302,7 +302,7 @@ void turnoInimigo()
 
 				// se for vermelho - artilharia
 			case 5:
-				playSoundFile("Yellow"); //vai dizer yellow mas vai reconhecer vermelho, porque o ficheiro de som "Red.rsf" n„o funciona
+				playSoundFile("Yellow"); //vai dizer yellow mas vai reconhecer vermelho, porque o ficheiro de som "Red.rsf" n√£o funciona
 				sleep(2000);
 				string nameenemy_a;
 				nameenemy_a = "ART";
@@ -311,7 +311,7 @@ void turnoInimigo()
 
 				// se for outra cor - nada/ignorar
 			default:
-				playSoundFile("Color");
+				playSoundFile("Color"); //ficheiro de som "Color"
 				displayCenteredBigTextLine(4, "DESCONHECIDO");
 				displayCenteredTextLine(6,"");
 				displayCenteredTextLine(7,"");
@@ -321,27 +321,27 @@ void turnoInimigo()
 		}
 		else //se estiver um inimigo no slot
 		{
-			switch(arrayenemies[i][0]) //se È artilharia, tanque ou infantaria
+			switch(arrayenemies[i][0]) //se √© artilharia, tanque ou infantaria
 			{
 				case 500:
-					//È artilharia
-					playSoundFile("Yellow"); //vai dizer yellow mas vai reconhecer vermelho, porque o ficheiro de som "Red.rsf" n„o funciona
+					//√© artilharia
+					playSoundFile("Yellow"); //vai dizer yellow mas vai reconhecer vermelho, porque o ficheiro de som "Red.rsf" n√£o funciona
 					sleep(2000);
 					string nameenemy_a;
 					nameenemy_a = "ART";
 					ataqueInimigo(i, nameenemy_a);
 					break;
 				case 200:
-					//È tanque
-					playSoundFile("Green");
+					//√© tanque
+					playSoundFile("Green"); //ficheiro de som "Green"
 					sleep(2000);
 					string nameenemy_t;
 					nameenemy_t = "TANK";
 					ataqueInimigo(i, nameenemy_t);
 					break;
 				case 100:
-					//È infantaria
-					playSoundFile("Blue");
+					//√© infantaria
+					playSoundFile("Blue"); //ficheiro de som "Blue"
 					sleep(2000);
 					string nameenemy_i;
 					nameenemy_i = "INF";
@@ -352,14 +352,14 @@ void turnoInimigo()
 			}
 		}
 		sleep(4000); //4 segundos
-		eraseDisplay(); //apaga tudo o que est· escrito no display
-		if(db[0] <= 0) //se a vida de DB for menor ou igual a 0 (isto È, se j· n„o tem vida)
+		eraseDisplay(); //apaga tudo o que est√° escrito no display
+		if(db[0] <= 0) //se a vida de DB for menor ou igual a 0 (isto √©, se j√° n√£o tem vida)
 		{
-			break; //sai do ciclo for para rapidamente ir ‡ funÁ„o de derrota
+			break; //sai do ciclo for para rapidamente ir √† fun√ß√£o de derrota
 		}
 	}
-	eraseDisplay(); //apaga tudo o que est· escrito no display
-	//MOTOR - RODAS PARA ATR¡S - IR AO INICIO
+	eraseDisplay(); //apaga tudo o que est√° escrito no display
+	//MOTOR - RODAS PARA ATR√ÅS - IR AO INICIO
 	movimento(-1);
 }
 
@@ -367,18 +367,18 @@ void turnoInimigo()
 void turnoDB()
 {
 	//ADICIONAR ENERGIA RECUPERADA
-	int enantes = db[1]; //energia antes da recuperaÁ„o
+	int enantes = db[1]; //energia antes da recupera√ß√£o
 
-	float floatrecuperada = (float) db[1] * 0.5; //valor em float de recuperaÁ„o de energia
-	int intrec = (int) floatrecuperada; //valor em int de recuperaÁ„o de energia
-	if(db[1] + intrec > 500) //se energia antes + energia de recuperaÁ„o em int exceder o m·ximo de energia possÌvel
+	float floatrecuperada = (float) db[1] * 0.5; //valor em float de recupera√ß√£o de energia
+	int intrec = (int) floatrecuperada; //valor em int de recupera√ß√£o de energia
+	if(db[1] + intrec > 500) //se energia antes + energia de recupera√ß√£o em int exceder o m√°ximo de energia poss√≠vel
 	{
-		intrec = 500 - db[1]; //energia recuperaÁ„o vai ter o valor restante para 500 de energia
-		db[1] = 500; //energia de DB vai ser o m·ximo - 500
+		intrec = 500 - db[1]; //energia recupera√ß√£o vai ter o valor restante para 500 de energia
+		db[1] = 500; //energia de DB vai ser o m√°ximo - 500
 	}
 	else
 	{
-		db[1] += intrec; //somar a energia antes com a energia de recuperaÁ„o
+		db[1] += intrec; //somar a energia antes com a energia de recupera√ß√£o
 	}
 
 	displayCenteredBigTextLine(4, "DEFENDER-BOT");
@@ -386,19 +386,19 @@ void turnoDB()
 	displayCenteredTextLine(6,"%s %d", "Vida:", db[0]);
 	displayCenteredTextLine(7,"%s %d %s %d %s %d", "Energia:", enantes, "+", intrec, "=", db[1]);
 	sleep(5000); //5 segundos
-	playSound(soundBlip);
+	playSound(soundBlip); //Som predefinido do ev3
 	displayCenteredTextLine(7,"%s %d", "Energia:", db[1]);
 	sleep(3000); //3 segundos
 
-	//primeiro vai atacar inimigo(s) que estejam vivos se possÌvel
+	//primeiro vai atacar inimigo(s) que estejam vivos se poss√≠vel
 
 	//verificar artilharias
 	for(int i = 0; i < 6; i++)
 	{
 		if(arrayenemies[i][0] == 500)
 		{
-			//È artilharia - È o mais priorit·rio, porque esta ou ataca a 100% ou n„o ataca
-			//se energia de db >= 150, num_ataque > 0, artilharia est· a 50 unidades de vida e ainda n„o foi atacado por DB
+			//√© artilharia - √© o mais priorit√°rio, porque esta ou ataca a 100% ou n√£o ataca
+			//se energia de db >= 150, num_ataque > 0, artilharia est√° a 50 unidades de vida e ainda n√£o foi atacado por DB
 			if(db[1] >= 150 && arrayenemies[i][1] > 0 && arrayenemies[i][2] > 0)
 			{
 				//MOTOR - RODAS PARA FRENTE
@@ -415,8 +415,8 @@ void turnoDB()
 	{
 		if(arrayenemies[i][0] == 200)
 		{
-			//È tanque
-			//se energia de db >= 150, num_ataque > 0, artilharia est· a 50 unidades de vida e ainda n„o foi atacado por DB
+			//√© tanque
+			//se energia de db >= 150, num_ataque > 0, artilharia est√° a 50 unidades de vida e ainda n√£o foi atacado por DB
 			if(db[1]>=450 && arrayenemies[i][1] > 0 && arrayenemies[i][2] == 200)
 			{
 				//MOTOR - RODAS PARA FRENTE
@@ -451,7 +451,7 @@ void turnoDB()
 	{
 		if(arrayenemies[i][0] == 100)
 		{
-			//È infantaria
+			//√© infantaria
 			if(db[1]>=300 && arrayenemies[i][1] > 0 && arrayenemies[i][2] >= 100)
 			{
 				//MOTOR - RODAS PARA FRENTE
@@ -495,7 +495,7 @@ void turnoDB()
 	}
 	sleep(1000); //1 segundo
 	eraseDisplay(); //apagar o display inteiro
-	//MOTOR - RODAS PARA ATR¡S - IR AO INICIO
+	//MOTOR - RODAS PARA ATR√ÅS - IR AO INICIO
 	movimento(-1);
 }
 
@@ -504,7 +504,7 @@ void turnoDB()
 task main()
 {
 	/*
-	IMPLEMENTA«√O
+	IMPLEMENTA√á√ÉO
 	*/
 	setSoundVolume(65); //o volume dos sons vai estar a 65%
 	eraseDisplay(); //apagar todo o display de EV3
@@ -515,10 +515,10 @@ task main()
 	//contagem de turnos restantes
 	for(int turnosrestantes = 13; turnosrestantes > 0; turnosrestantes--)
 	{
-		//se n„o tem vida restante -> derrota
+		//se n√£o tem vida restante -> derrota
 		if(db[0] <= 0)
 		{
-			//sai do ciclo de turnos para ir diretamente ‡ verificaÁ„o de vida de DB
+			//sai do ciclo de turnos para ir diretamente √† verifica√ß√£o de vida de DB
 			break;
 		}
 
@@ -526,7 +526,7 @@ task main()
 		displayCenteredBigTextLine(4, "%s %d", "Ronda", 13-(turnosrestantes-1));
 		sleep(2000); //2 segundos
 
-		//se turnorestantes for par, signifÌca que pertence ‡ sequÍncia 2,4,6,8,10,12 -> turno DB
+		//se turnorestantes for par, signif√≠ca que pertence √† sequ√™ncia 2,4,6,8,10,12 -> turno DB
 		if(turnosrestantes % 2 == 0)
 		{
 			displayCenteredBigTextLine(8, "DEFENDER-BOT");
@@ -536,7 +536,7 @@ task main()
 			sleep(200); //0.2 segundos
 			turnoDB();
 		}
-		//se turnosrestantes for Ìmpar, significa que pertence ‡ sequÍncia 1,3,5,7,9,11,13 -> turnoInimigo
+		//se turnosrestantes for √≠mpar, significa que pertence √† sequ√™ncia 1,3,5,7,9,11,13 -> turnoInimigo
 		else
 		{
 			displayCenteredBigTextLine(8, "FORCA ATACANTE");
@@ -555,20 +555,20 @@ task main()
 		displayCenteredBigTextLine(8, "** VITORIA **");
 
 		//adicionar som de vitoria
-		playSoundFile("Good job");
+		playSoundFile("Good job"); //ficheiro de som "Good job"
 	}
-	//se n„o tem vida restante -> derrota
+	//se n√£o tem vida restante -> derrota
 	else
 	{
 		eraseDisplay(); //apagar todo o display de EV3
 		displayCenteredBigTextLine(8, "** DERROTA **");
 
 		//adicionar som de derrota
-		playSoundFile("Game over");
+		playSoundFile("Game over"); //ficheiro de som "Game Over"
 	}
 
 	sleep(7000); //7 segundos
 	eraseDisplay(); //apagar todo o display de EV3
-	playSoundFile("Goodbye");
+	playSoundFile("Goodbye"); //ficheiro de som "Goodbye"
 	sleep(2000); //2 segundos
 }
